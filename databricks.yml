@@ -1,0 +1,29 @@
+# This is a Databricks asset bundle definition for git_cicd.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: git_cicd
+  uuid: c2c0d3ff-4d2b-4154-a3b4-666ecde45b70
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-8e061b63-c3bf.cloud.databricks.com
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-8e061b63-c3bf.cloud.databricks.com
+      # We explicitly deploy to /Workspace/Users/e7ba406d-b00b-4430-bef9-909d4df2d21c to make sure we only have a single copy.
+      root_path: /Workspace/Users/e7ba406d-b00b-4430-bef9-909d4df2d21c/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - service_principal_name: e7ba406d-b00b-4430-bef9-909d4df2d21c
+        level: CAN_MANAGE

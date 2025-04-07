@@ -1,0 +1,13 @@
+# The main pipeline for git_cicd
+resources:
+  pipelines:
+    git_cicd_pipeline:
+      name: git_cicd_pipeline
+      catalog: bizmetric_databricks_learning
+      schema: git_cicd_${bundle.target}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: ${workspace.file_path}/src
