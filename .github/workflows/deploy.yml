@@ -52,7 +52,7 @@ jobs:
  
       # Run the Databricks workflow named "my-job" as defined in the
       # bundle that was just deployed.
-      - run: databricks bundle run db_cicd_test --refresh-all
+      - run: databricks bundle run git_cicd_job --refresh-all
         working-directory: .
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
