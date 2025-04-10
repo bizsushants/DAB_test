@@ -1,0 +1,19 @@
+name: 'Deploy to Test'
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  deploy:
+    name: 'Deploy to Databricks Test'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: databricks/setup-cli@main
+      - run: databricks bundle deploy
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_TEST }}
+          DATABRICKS_BUNDLE_ENV: test
